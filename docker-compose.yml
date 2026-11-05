@@ -1,0 +1,14 @@
+services:
+  biblioteca_infnet:
+    image: postgres:18
+    ports:
+      - 5435:5432
+    container_name: biblioteca_db
+    environment:
+      POSTGRES_DB: biblioteca_infnet
+      POSTGRES_USER: gabriel
+      POSTGRES_PASSWORD: 123456
+    volumes:
+      - biblioteca_infnet_data:/var/lib/postgresql
+volumes:
+  biblioteca_infnet_data:

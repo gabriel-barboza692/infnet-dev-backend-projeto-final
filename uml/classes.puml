@@ -1,0 +1,58 @@
+@startuml uml
+  class Livro{
+    -id: String
+    -autor: String
+    -isbn: String
+  }
+
+  class Exemplar{
+    -id: String
+    -codigoDePatrimonio:String
+    -estadoDeConservacao:EstadoDeConservacao
+    -livro:Livro
+  }
+
+  class Emprestimo{
+    id: String
+    dataRetirada:Date
+    prazoDevolucao: Date
+    dataEfetivaDevolucao: Date 
+    exemplar:Exemplar
+    membro: Membro
+  }
+
+  class Membro{
+    id: String
+    nome: String
+    matricula:string
+    tipoAluno:TipoAluno
+
+  }
+
+  class Reserva{
+    id:String
+    dataReserva:Date
+  }
+
+  class Multa{
+    id: String
+    valor: float
+    isPago: boolean
+  }
+
+  enum EstadoDeConservacao{
+    EXCELENTE, REGULAR, RUIM
+  }
+
+  enum TipoAluno{
+    ALUNO, PROFESSOR, FUNCIONARIO
+  }
+
+Livro "1" -- "0..*" Exemplar: possui
+Livro "1" -- "0..*" Reserva: possui
+Exemplar "1" -- "0..*" Emprestimo: possui
+Emprestimo "1" -- "0..1" Multa : possui
+Membro "1" -- "0..*" Emprestimo:possui
+Membro "1" -- "0..*" Reserva : possui
+Membro "1" -- "0..*" Multa : possui
+@enduml
