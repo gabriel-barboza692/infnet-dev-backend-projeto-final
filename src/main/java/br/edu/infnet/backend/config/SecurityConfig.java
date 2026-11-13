@@ -22,6 +22,7 @@ import lombok.RequiredArgsConstructor;
 public class SecurityConfig {
 
   private final SecurityFilter securityFilter;
+  private final SecurityExceptionHandler securityExceptionHandler;
 
   @Bean
   public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
@@ -29,6 +30,9 @@ public class SecurityConfig {
         .csrf(csrf -> csrf.disable())
         .cors(cors -> cors.configure(http))
         .sessionManagement(session -> session.sessionCreationPolicy(SessionCreationPolicy.STATELESS))
+        .exceptionHandling(exceptions -> exceptions
+            .authenticationEntryPoint(securityExceptionHandler)
+            .accessDeniedHandler(securityExceptionHandler))
         .authorizeHttpRequests(authorize -> authorize
             .dispatcherTypeMatchers(DispatcherType.ERROR).permitAll()
             .requestMatchers(HttpMethod.OPTIONS, "/**").permitAll()

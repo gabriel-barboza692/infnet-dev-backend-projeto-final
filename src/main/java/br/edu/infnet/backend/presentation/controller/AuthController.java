@@ -1,9 +1,9 @@
 package br.edu.infnet.backend.presentation.controller;
 
+import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.authentication.AuthenticationManager;
-import org.springframework.security.authentication.BadCredentialsException;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.crypto.password.PasswordEncoder;
@@ -15,6 +15,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 import br.edu.infnet.backend.config.TokenService;
 import br.edu.infnet.backend.domain.entity.Usuario;
+import br.edu.infnet.backend.domain.exception.UsuarioJaCadastradoException;
 import br.edu.infnet.backend.domain.repository.UserRepository;
 import br.edu.infnet.backend.presentation.dto.login.LoginRequest;
 import br.edu.infnet.backend.presentation.dto.login.LoginResponse;
@@ -33,25 +34,20 @@ public class AuthController {
   private final AuthenticationManager authenticationManager;
 
   @PostMapping("/login")
-  public ResponseEntity<?> login(@Valid @RequestBody LoginRequest request) {
-    try {
-      UsernamePasswordAuthenticationToken userAndPass = new UsernamePasswordAuthenticationToken(request.getEmail(),
-          request.getSenha());
-      Authentication authenticate = authenticationManager.authenticate(userAndPass);
-
-      Usuario user = (Usuario) authenticate.getPrincipal();
-
-      String token = tokenService.generateToken(user);
-      LoginResponse loginResponse = new LoginResponse();
-      loginResponse.setToken(token);
-      return ResponseEntity.ok(loginResponse);
-    } catch (BadCredentialsException e) {
-      return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body("Usuário inexistente ou senha inválida");
-    }
+  public ResponseEntity<LoginResponse> login(@Valid @RequestBody LoginRequest request) {
+    UsernamePasswordAuthenticationToken userAndPass = new UsernamePasswordAuthenticationToken(request.getEmail(),
+        request.getSenha());
+    Authentication authenticate = authenticationManager.authenticate(userAndPass);
+    Usuario user = (Usuario) authenticate.getPrincipal();
+    String token = tokenService.generateToken(user);
+    return ResponseEntity.ok(new LoginResponse(token));
   }
 
   @PostMapping("/register")
   public ResponseEntity<RegisterUsuarioResponse> register(@Valid @RequestBody RegisterUsuarioRequest request) {
+    if (userRepository.existsByEmail(request.getEmail())) {
+      throw new UsuarioJaCadastradoException();
+    }
     Usuario usuario = Usuario
         .builder()
         .nome(request.getNome())
@@ -60,7 +56,15 @@ public class AuthController {
         .password(passwordEncoder.encode(request.getPassword()))
         .tipoUsuario(request.getTipoUsuario())
         .build();
-    userRepository.save(usuario);
+    try {
+      userRepository.saveAndFlush(usuario);
+    } catch (DataIntegrityViolationException exception) {
+      // A restrição do banco também protege cadastros simultâneos do mesmo e-mail.
+      if (userRepository.existsByEmail(request.getEmail())) {
+        throw new UsuarioJaCadastradoException();
+      }
+      throw exception;
+    }
     RegisterUsuarioResponse registerUsuarioResponse = new RegisterUsuarioResponse();
     registerUsuarioResponse.setNome(usuario.getNome());
     registerUsuarioResponse.setEmail(usuario.getEmail());

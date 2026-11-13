@@ -10,4 +10,6 @@ import br.edu.infnet.backend.domain.entity.Usuario;
 public interface UserRepository extends JpaRepository<Usuario, Long> {
 
   Optional<UserDetails> findByEmail(String email);
+
+  boolean existsByEmail(String email);
 }
