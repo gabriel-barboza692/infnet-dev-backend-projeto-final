@@ -14,9 +14,9 @@ public class ISBNTest {
     String isbnNula = null;
     String isbnVazia = "";
 
-    DomainException exceptionEspacoEmBranco = assertThrows(DomainException.class, () -> new ISBN(isbnEspacoEmBranco));
-    DomainException exceptionIsbnNula = assertThrows(DomainException.class, () -> new ISBN(isbnNula));
-    DomainException exceptionIsbnVazia = assertThrows(DomainException.class, () -> new ISBN(isbnVazia));
+    DomainException exceptionEspacoEmBranco = assertThrows(DomainException.class, () -> new ISBNVO(isbnEspacoEmBranco));
+    DomainException exceptionIsbnNula = assertThrows(DomainException.class, () -> new ISBNVO(isbnNula));
+    DomainException exceptionIsbnVazia = assertThrows(DomainException.class, () -> new ISBNVO(isbnVazia));
     assertEquals("ISBN não pode estar vazia", exceptionEspacoEmBranco.getMessage());
     assertEquals("ISBN não pode estar vazia", exceptionIsbnNula.getMessage());
     assertEquals("ISBN não pode estar vazia", exceptionIsbnVazia.getMessage());
@@ -25,14 +25,14 @@ public class ISBNTest {
   @Test
   void deveRetornarUmErroQuandoISBNPossuirCaracteresNaoNumericos() {
     String isbnComLetras = "123sdsfdsa#";
-    DomainException exception = assertThrows(DomainException.class, () -> new ISBN(isbnComLetras));
+    DomainException exception = assertThrows(DomainException.class, () -> new ISBNVO(isbnComLetras));
     assertEquals("ISBN deve conter apenas números", exception.getMessage());
   }
 
   @Test
   void deveRetornarUmErroSeNaoPossuirExatos13Digitos() {
     String isbnInvalido = "123456789111";
-    DomainException exception = assertThrows(DomainException.class, () -> new ISBN(isbnInvalido));
+    DomainException exception = assertThrows(DomainException.class, () -> new ISBNVO(isbnInvalido));
     assertEquals("ISBN deve conter 13 caracteres", exception.getMessage());
   }
 

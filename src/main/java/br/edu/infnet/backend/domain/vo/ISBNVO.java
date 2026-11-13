@@ -2,8 +2,8 @@ package br.edu.infnet.backend.domain.vo;
 
 import br.edu.infnet.backend.domain.exception.DomainException;
 
-public record ISBN(String value) {
-  public ISBN {
+public record ISBNVO(String value) {
+  public ISBNVO {
 
     validarSeIsbnEhVaziaOuNula(value);
     validarSeIsbnSaoApenasNumeros(value);
