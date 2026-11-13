@@ -1,7 +1,9 @@
 package br.edu.infnet.backend.domain.vo;
 
 import br.edu.infnet.backend.domain.exception.DomainException;
+import jakarta.persistence.Embeddable;
 
+@Embeddable
 public record AutorVO(String nome) {
   public AutorVO {
     if (nome == null) {
