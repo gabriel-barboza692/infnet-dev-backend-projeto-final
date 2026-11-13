@@ -9,13 +9,17 @@ import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.Table;
+import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
+import lombok.NoArgsConstructor;
 
 @Entity
 @Table(name = "livro")
 @EqualsAndHashCode(onlyExplicitlyIncluded = true)
 @Data
+@NoArgsConstructor
+@AllArgsConstructor
 public class Livro {
   @EqualsAndHashCode.Include
   @Id

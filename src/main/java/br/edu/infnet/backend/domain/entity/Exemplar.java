@@ -11,13 +11,17 @@ import jakarta.persistence.Id;
 import jakarta.persistence.JoinColumn;
 import jakarta.persistence.ManyToOne;
 import jakarta.persistence.Table;
+import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
+import lombok.NoArgsConstructor;
 
 @Entity
 @Table(name = "exemplar")
 @EqualsAndHashCode(onlyExplicitlyIncluded = true)
 @Data
+@NoArgsConstructor
+@AllArgsConstructor
 public class Exemplar {
   @Id
   @GeneratedValue(strategy = GenerationType.IDENTITY)
