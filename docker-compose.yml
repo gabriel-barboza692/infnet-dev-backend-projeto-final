@@ -1,0 +1,9 @@
+services:
+  db_biblioteca_infnet:
+    image: postgres:18
+    environment:
+      POSTGRES_USER: gabriel
+      POSTGRES_DB: biblioteca
+      POSTGRES_PASSWORD: 123456
+    ports:
+      - 5438:5432
