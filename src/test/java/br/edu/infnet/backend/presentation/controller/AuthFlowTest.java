@@ -40,6 +40,7 @@ import org.springframework.test.web.servlet.setup.MockMvcBuilders;
 import org.springframework.web.context.WebApplicationContext;
 import org.springframework.web.servlet.config.annotation.EnableWebMvc;
 
+import br.edu.infnet.backend.application.service.AuthenticationService;
 import br.edu.infnet.backend.config.AuthService;
 import br.edu.infnet.backend.config.SecurityConfig;
 import br.edu.infnet.backend.config.SecurityExceptionHandler;
@@ -55,8 +56,8 @@ import jakarta.servlet.Filter;
 class AuthFlowTest {
   @Configuration
   @EnableWebMvc
-  @Import({SecurityConfig.class, SecurityFilter.class, TokenService.class, AuthService.class, AuthController.class,
-      GlobalExceptionHandler.class, SecurityExceptionHandler.class})
+  @Import({SecurityConfig.class, SecurityFilter.class, TokenService.class, AuthService.class, AuthenticationService.class,
+      AuthController.class, GlobalExceptionHandler.class, SecurityExceptionHandler.class})
   static class TestConfig {
     @Bean
     UserRepository userRepository() {
