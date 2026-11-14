@@ -21,8 +21,11 @@ import org.springframework.web.context.request.WebRequest;
 import org.springframework.web.servlet.mvc.method.annotation.ResponseEntityExceptionHandler;
 
 import br.edu.infnet.backend.domain.exception.DomainException;
+import br.edu.infnet.backend.domain.exception.ExemplarImproprioException;
+import br.edu.infnet.backend.domain.exception.ExemplarJaEmprestadoException;
 import br.edu.infnet.backend.domain.exception.RecursoNaoEncontradoException;
 import br.edu.infnet.backend.domain.exception.UsuarioJaCadastradoException;
+import br.edu.infnet.backend.domain.exception.UsuarioNaoPodeRealizarEmprestimo;
 
 @RestControllerAdvice
 public class GlobalExceptionHandler extends ResponseEntityExceptionHandler {
@@ -31,6 +34,24 @@ public class GlobalExceptionHandler extends ResponseEntityExceptionHandler {
   @ExceptionHandler(UsuarioJaCadastradoException.class)
   public ProblemDetail handleUsuarioJaCadastrado(UsuarioJaCadastradoException exception, WebRequest request) {
     return problem(HttpStatus.CONFLICT, "Usuário já cadastrado", exception.getMessage(), request);
+  }
+
+  @ExceptionHandler(UsuarioNaoPodeRealizarEmprestimo.class)
+  public ProblemDetail handlerUsuarioNaoPodeRealizarEmprestimo(UsuarioNaoPodeRealizarEmprestimo exception,
+      WebRequest request) {
+    return problem(HttpStatus.CONFLICT, "Usuário ultrapassou o limite de empréstimos", exception.getMessage(), request);
+  }
+
+  @ExceptionHandler(ExemplarImproprioException.class)
+  public ProblemDetail handleExemplarImproprio(ExemplarImproprioException exception,
+      WebRequest request) {
+    return problem(HttpStatus.CONFLICT, "Exemplar impróprio", exception.getMessage(), request);
+  }
+
+  @ExceptionHandler(ExemplarJaEmprestadoException.class)
+  public ProblemDetail handleExemplarJaEmprestado(ExemplarJaEmprestadoException exception,
+      WebRequest request) {
+    return problem(HttpStatus.CONFLICT, "Exemplar já emprestado", exception.getMessage(), request);
   }
 
   @ExceptionHandler(RecursoNaoEncontradoException.class)
