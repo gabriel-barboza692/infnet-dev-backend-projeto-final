@@ -8,11 +8,11 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 
+import br.edu.infnet.backend.application.dto.login.LoginRequest;
+import br.edu.infnet.backend.application.dto.login.LoginResponse;
+import br.edu.infnet.backend.application.dto.usuario.RegisterUsuarioRequest;
+import br.edu.infnet.backend.application.dto.usuario.RegisterUsuarioResponse;
 import br.edu.infnet.backend.application.service.AuthenticationService;
-import br.edu.infnet.backend.presentation.dto.login.LoginRequest;
-import br.edu.infnet.backend.presentation.dto.login.LoginResponse;
-import br.edu.infnet.backend.presentation.dto.usuario.RegisterUsuarioRequest;
-import br.edu.infnet.backend.presentation.dto.usuario.RegisterUsuarioResponse;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 

@@ -1,4 +1,4 @@
-package br.edu.infnet.backend.presentation.dto.login;
+package br.edu.infnet.backend.application.dto.login;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;

@@ -1,4 +1,4 @@
-package br.edu.infnet.backend.presentation.dto.usuario;
+package br.edu.infnet.backend.application.dto.usuario;
 
 import br.edu.infnet.backend.domain.enums.TipoUsuario;
 import jakarta.validation.constraints.Email;

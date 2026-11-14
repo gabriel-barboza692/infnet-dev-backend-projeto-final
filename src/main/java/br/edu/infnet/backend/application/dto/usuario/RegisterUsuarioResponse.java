@@ -1,4 +1,4 @@
-package br.edu.infnet.backend.presentation.dto.usuario;
+package br.edu.infnet.backend.application.dto.usuario;
 
 import jakarta.validation.constraints.Email;
 import jakarta.validation.constraints.NotBlank;

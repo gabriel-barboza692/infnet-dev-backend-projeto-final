@@ -1,4 +1,4 @@
-package br.edu.infnet.backend.presentation.dto.login;
+package br.edu.infnet.backend.application.dto.login;
 
 import jakarta.validation.constraints.Email;
 import jakarta.validation.constraints.NotBlank;

@@ -7,14 +7,14 @@ import org.springframework.security.core.Authentication;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
+import br.edu.infnet.backend.application.dto.login.LoginRequest;
+import br.edu.infnet.backend.application.dto.login.LoginResponse;
+import br.edu.infnet.backend.application.dto.usuario.RegisterUsuarioRequest;
+import br.edu.infnet.backend.application.dto.usuario.RegisterUsuarioResponse;
 import br.edu.infnet.backend.config.TokenService;
 import br.edu.infnet.backend.domain.entity.Usuario;
 import br.edu.infnet.backend.domain.exception.UsuarioJaCadastradoException;
 import br.edu.infnet.backend.domain.repository.UserRepository;
-import br.edu.infnet.backend.presentation.dto.login.LoginRequest;
-import br.edu.infnet.backend.presentation.dto.login.LoginResponse;
-import br.edu.infnet.backend.presentation.dto.usuario.RegisterUsuarioRequest;
-import br.edu.infnet.backend.presentation.dto.usuario.RegisterUsuarioResponse;
 import lombok.RequiredArgsConstructor;
 
 @Service
